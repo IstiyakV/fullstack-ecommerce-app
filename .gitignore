@@ -1,0 +1,69 @@
+# ===========================================================
+# Shopperz Mart — .gitignore
+# ===========================================================
+
+# === Dependencies ===
+node_modules/
+
+# === Build Output ===
+Backend/dist/
+Frontend/dist/
+Admin/dist/
+deploy/
+
+# === Environment (contains secrets!) ===
+.env
+.env.local
+.env.production
+.env.staging
+Backend/.env
+
+# === Uploads (user-generated content) ===
+Backend/uploads/
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# === IDE / Editor ===
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+
+# === Docker Volumes ===
+pgdata/
+
+# === Logs ===
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# === Android ===
+Android-Kotlin/.gradle/
+Android-Kotlin/.idea/
+Android-Kotlin/.kotlin/
+Android-Kotlin/build/
+Android-Kotlin/app/build/
+Android-Kotlin/local.properties
+Android-Kotlin/app/release/
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# === Misc ===
+*.zip
+*.tar.gz
+*.tgz
+build_output.txt
+coverage/
+.nyc_output/

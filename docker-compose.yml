@@ -1,0 +1,52 @@
+services:
+  db:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DATABASE_USER:-postgres}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-password}
+      POSTGRES_DB: ${DATABASE_NAME:-ecommerce}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    restart: unless-stopped
+    ports:
+      - '${API_PORT:-3000}:3000'
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: ${DATABASE_PORT:-5432}
+      DATABASE_USER: ${DATABASE_USER:-postgres}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-password}
+      DATABASE_NAME: ${DATABASE_NAME:-ecommerce}
+      API_PORT: ${API_PORT:-3000}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend/public:/usr/src/app/public
+
+  web:
+    build: ./Frontend
+    restart: unless-stopped
+    ports:
+      - '${WEB_PORT:-3001}:80'
+    depends_on:
+      - api
+
+  admin:
+    build: ./Admin
+    restart: unless-stopped
+    ports:
+      - '${ADMIN_PORT:-3002}:80'
+    depends_on:
+      - api
+
+volumes:
+  pgdata:

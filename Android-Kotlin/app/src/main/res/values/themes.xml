@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.ShopperzMart" parent="android:Theme.Material.Light.NoActionBar"/>
+    <!-- Keep Splash style name so Manifest reference doesn't break, but use simple base -->
+    <style name="Theme.ShopperzMart.Splash" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+</resources>

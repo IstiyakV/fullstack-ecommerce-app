@@ -1,0 +1,6 @@
+# Dev override — exposes DB on DEV_DB_PORT (default 5433) to avoid conflict with local PostgreSQL.
+# Used by dev.ps1/dev.sh only. Does NOT modify the main docker-compose.yml.
+services:
+  db:
+    ports:
+      - '${DEV_DB_PORT:-5433}:5432'
