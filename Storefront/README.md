@@ -1,4 +1,4 @@
-# Frontend — React Web Storefront
+# Storefront — React Web Storefront
 
 A Daraz/Amazon-inspired e-commerce storefront built with React 19 and vanilla CSS.
 
@@ -63,7 +63,7 @@ The CSS design system is built entirely with vanilla CSS custom properties:
 ## Running Standalone
 
 ```bash
-cd Frontend
+cd Storefront
 npm install
 npm run dev    # Starts on WEB_PORT (default: 3001)
 ```

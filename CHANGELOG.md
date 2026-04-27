@@ -23,7 +23,7 @@ The first public release of Shopperz Mart — a complete, production-ready e-com
 - Image upload with Multer
 - CORS configuration for multi-domain deployment
 
-#### Web Frontend (React)
+#### Web Storefront (React)
 - 9 pages: Home, Product List, Product Detail, Cart, Checkout, Order Success, Login, Register, Account
 - Daraz-inspired design system (2100+ lines vanilla CSS)
 - Hero carousel with admin-managed banners

@@ -3,15 +3,14 @@
   Shopperz Mart - Namecheap cPanel Deployment Builder
 .DESCRIPTION
   Builds all 3 apps and packages into a single ZIP with the correct folder structure.
-  Extract in ~/demoshop.isty.me/ and you are done.
 .EXAMPLE
   .\deploy.ps1
 #>
 
 param(
-  [string]$ApiDomain = "https://api-demoshop.isty.me",
-  [string]$WebDomain = "https://demoshop.isty.me",
-  [string]$AdminDomain = "https://admin-demoshop.isty.me",
+  [string]$ApiDomain = "https://api.yourdomain.com",
+  [string]$WebDomain = "https://yourdomain.com",
+  [string]$AdminDomain = "https://admin.yourdomain.com",
   [switch]$SkipImages
 )
 
@@ -53,15 +52,15 @@ if (-not $SkipImages -and (Test-Path "public")) { Copy-Item -Path "public" -Dest
 Pop-Location
 Write-Host "  + Backend/ ready" -ForegroundColor Green
 
-# -- Step 2: Build Frontend ----------------------------------------------
-Write-Host "[3/7] Building Frontend (React Web)..." -ForegroundColor Yellow
-Push-Location (Join-Path $Root "Frontend")
+# -- Step 2: Build Storefront ---------------------------------------------
+Write-Host "[3/7] Building Storefront (React Web)..." -ForegroundColor Yellow
+Push-Location (Join-Path $Root "Storefront")
 
 # Set env vars directly (PowerShell .env.production has BOM encoding issues with Vite)
 $env:VITE_API_URL = "$ApiDomain/api/v1/customer"
 
 cmd /c "npm run build 2>&1" | Out-Null
-if ($LASTEXITCODE -ne 0) { $env:VITE_API_URL = $null; Pop-Location; throw "Frontend build failed!" }
+if ($LASTEXITCODE -ne 0) { $env:VITE_API_URL = $null; Pop-Location; throw "Storefront build failed!" }
 $env:VITE_API_URL = $null
 
 # SPA .htaccess
@@ -76,10 +75,10 @@ $env:VITE_API_URL = $null
   '</IfModule>'
 ) -join "`n" | Set-Content -Path (Join-Path "dist" ".htaccess") -Encoding ASCII
 
-$FrontendDir = Join-Path $Stage "Frontend"
-Copy-Item -Path "dist" -Destination $FrontendDir -Recurse
+$StorefrontDir = Join-Path $Stage "Storefront"
+Copy-Item -Path "dist" -Destination $StorefrontDir -Recurse
 Pop-Location
-Write-Host "  + Frontend/ ready" -ForegroundColor Green
+Write-Host "  + Storefront/ ready" -ForegroundColor Green
 
 # -- Step 3: Build Admin --------------------------------------------------
 Write-Host "[4/7] Building Admin Panel (React)..." -ForegroundColor Yellow
@@ -173,7 +172,8 @@ Write-Host "  + .htaccess ready" -ForegroundColor Green
 # -- Step 6: Create single ZIP -------------------------------------------
 Write-Host "[7/7] Packaging into single ZIP..." -ForegroundColor Yellow
 Start-Sleep -Seconds 3
-$ZipPath = Join-Path $DeployDir "demoshop.isty.me.zip"
+$zipName = ($WebDomain -replace 'https?://', '') + '.zip'
+$ZipPath = Join-Path $DeployDir $zipName
 if (Test-Path $ZipPath) { Remove-Item $ZipPath -Force }
 
 Push-Location $Stage
@@ -185,7 +185,7 @@ for ($i = 0; $i -lt 5; $i++) {
   try { Remove-Item $Stage -Recurse -Force -ErrorAction Stop; break }
   catch { Start-Sleep -Seconds 2 }
 }
-Write-Host "  + demoshop.isty.me.zip created" -ForegroundColor Green
+Write-Host "  + $zipName created" -ForegroundColor Green
 
 # -- Summary -------------------------------------------------------------
 $zipSize = (Get-Item $ZipPath).Length
@@ -195,14 +195,15 @@ Write-Host ""
 Write-Host "==================================================" -ForegroundColor Cyan
 Write-Host "  BUILD COMPLETE" -ForegroundColor Cyan
 Write-Host "==================================================" -ForegroundColor Cyan
-Write-Host "  demoshop.isty.me.zip    $sizeStr" -ForegroundColor White
+Write-Host "  $zipName    $sizeStr" -ForegroundColor White
 Write-Host ""
 Write-Host "  Contents:" -ForegroundColor Yellow
 Write-Host "  .env              (edit DB creds before uploading)" -ForegroundColor DarkGray
 Write-Host "  .htaccess         (root security)" -ForegroundColor DarkGray
-Write-Host "  Backend/          (api-demoshop.isty.me)" -ForegroundColor DarkGray
-Write-Host "  Frontend/         (demoshop.isty.me)" -ForegroundColor DarkGray
-Write-Host "  Admin/            (admin-demoshop.isty.me)" -ForegroundColor DarkGray
+Write-Host "  Backend/          ($ApiDomain)" -ForegroundColor DarkGray
+Write-Host "  Storefront/       ($WebDomain)" -ForegroundColor DarkGray
+Write-Host "  Admin/            ($AdminDomain)" -ForegroundColor DarkGray
 Write-Host ""
-Write-Host "  Upload -> Extract in ~/demoshop.isty.me/ -> Done!" -ForegroundColor Green
+$serverPath = '~/' + ($WebDomain -replace 'https?://', '') + '/'
+Write-Host "  Upload -> Extract in $serverPath -> Done!" -ForegroundColor Green
 Write-Host ""

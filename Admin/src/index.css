@@ -49,7 +49,7 @@ body { margin: 0; background: var(--sm-body-bg); color: var(--sm-text); -webkit-
 .admin-sidebar {
   background: var(--sm-sidebar-bg);
   background-image: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-  min-height: 100vh;
+  height: 100vh;
   width: 270px;
   position: fixed;
   top: 0; left: 0;

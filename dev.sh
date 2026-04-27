@@ -2,7 +2,7 @@
 #
 # Shopperz Mart — Local Development Script (Hybrid Mode)
 # =======================================================
-# Runs PostgreSQL in Docker, Backend + Frontend locally.
+# Runs PostgreSQL in Docker, Backend + Storefront locally.
 # All ports are read from root .env (single source of truth).
 #
 # Usage:  ./dev.sh                (start everything)
@@ -127,7 +127,7 @@ if [ "$SKIP_DB" = false ] && [ "$FRONTEND_ONLY" = false ]; then
 elif [ "$SKIP_DB" = true ]; then
     warn "Skipping DB startup (--skip-db)"
 else
-    warn "Frontend-only mode, skipping DB"
+    warn "Storefront-only mode, skipping DB"
 fi
 
 # ================================================================
@@ -154,7 +154,7 @@ if [ "$FRONTEND_ONLY" = false ]; then
 fi
 
 # ================================================================
-#  Step 3: Start Frontend (Vite) locally
+#  Step 3: Start Storefront (Vite) locally
 # ================================================================
 if [ "$BACKEND_ONLY" = false ]; then
     if [ "$FRONTEND_ONLY" = false ]; then
@@ -162,11 +162,11 @@ if [ "$BACKEND_ONLY" = false ]; then
         sleep 5
     fi
 
-    info "Starting Vite Frontend on http://localhost:$WEB_PORT ..."
+    info "Starting Vite Storefront on http://localhost:$WEB_PORT ..."
 
-    (cd "$ROOT/Frontend" && npm run dev) &
+    (cd "$ROOT/Storefront" && npm run dev) &
     PIDS+=($!)
-    ok "Frontend started (PID: ${PIDS[-1]})"
+    ok "Storefront started (PID: ${PIDS[-1]})"
 fi
 
 # ================================================================
@@ -193,7 +193,7 @@ if [ "$FRONTEND_ONLY" = false ]; then
 fi
 if [ "$BACKEND_ONLY" = false ]; then
     echo "   Admin Panel:   http://localhost:$ADMIN_PORT"
-    echo "   Web Frontend:  http://localhost:$WEB_PORT"
+    echo "   Web Storefront: http://localhost:$WEB_PORT"
 fi
 echo ""
 echo -e "\033[33m   Press Ctrl+C to stop all servers\033[0m"

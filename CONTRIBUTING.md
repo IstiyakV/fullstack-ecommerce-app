@@ -30,8 +30,8 @@ Please be respectful and constructive in all interactions. We are committed to p
 1. **Fork** the repository on GitHub
 2. **Clone** your fork:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/Shopperz-Mart.git
-   cd Shopperz-Mart
+   git clone https://github.com/YOUR_USERNAME/fullstack-ecommerce-app.git
+   cd fullstack-ecommerce-app
    ```
 3. **Configure environment:**
    ```bash
@@ -123,13 +123,13 @@ style(admin): improve dashboard chart responsiveness
 | Directory | Tech | Description |
 |-----------|------|-------------|
 | `Backend/` | NestJS, TypeORM, PostgreSQL | REST API with 55+ endpoints |
-| `Frontend/` | React 19, Vite 8, Vanilla CSS | Customer-facing web storefront |
+| `Storefront/` | React 19, Vite 8, Vanilla CSS | Customer-facing web storefront |
 | `Admin/` | React 19, Tailwind CSS 4, AdminLTE | Admin dashboard and management |
 | `Android-Kotlin/` | Kotlin, Jetpack Compose, Hilt | Native Android application |
 
 ## Need Help?
 
-- Open an [Issue](https://github.com/IstiyakV/Shopperz-Mart/issues) for bugs or feature requests
+- Open an [Issue](https://github.com/IstiyakV/fullstack-ecommerce-app/issues) for bugs or feature requests
 - Check existing issues before creating a new one
 - Use issue templates for structured reporting
 

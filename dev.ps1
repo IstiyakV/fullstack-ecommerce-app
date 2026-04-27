@@ -1,19 +1,19 @@
 <#
   Shopperz Mart - Local Development Script (Hybrid Mode)
   =======================================================
-  Runs PostgreSQL in Docker, Backend + Frontend locally.
+  Runs PostgreSQL in Docker, Backend + Storefront locally.
   All ports are read from root .env (single source of truth).
 
   Usage:  .\dev.ps1              (start everything)
           .\dev.ps1 -SkipDb      (skip DB, just start servers)
           .\dev.ps1 -BackendOnly (DB + backend only)
-          .\dev.ps1 -FrontendOnly(frontend only, assumes DB+backend running)
+          .\dev.ps1 -StorefrontOnly(storefront only, assumes DB+backend running)
 #>
 
 param(
     [switch]$SkipDb,
     [switch]$BackendOnly,
-    [switch]$FrontendOnly
+    [switch]$StorefrontOnly
 )
 
 $ErrorActionPreference = "Continue"
@@ -77,7 +77,7 @@ Write-Ok "Ports $API_PORT and $WEB_PORT are free."
 # ================================================================
 #  Step 1: Start PostgreSQL in Docker (lightweight, ~50MB RAM)
 # ================================================================
-if (-not $SkipDb -and -not $FrontendOnly) {
+if (-not $SkipDb -and -not $StorefrontOnly) {
     Write-Info "Starting PostgreSQL in Docker (host port $DEV_DB_PORT)..."
 
     $composeArgs = "-f `"$ROOT\docker-compose.yml`" -f `"$ROOT\docker-compose.dev.yml`" up db -d"
@@ -124,7 +124,7 @@ if (-not $SkipDb -and -not $FrontendOnly) {
 } elseif ($SkipDb) {
     Write-Wrn "Skipping DB startup (-SkipDb)"
 } else {
-    Write-Wrn "Frontend-only mode, skipping DB"
+    Write-Wrn "Storefront-only mode, skipping DB"
 }
 
 # ================================================================
@@ -133,7 +133,7 @@ if (-not $SkipDb -and -not $FrontendOnly) {
 $backendProc = $null
 $frontendProc = $null
 
-if (-not $FrontendOnly) {
+if (-not $StorefrontOnly) {
     Write-Info "Starting NestJS Backend on http://localhost:$API_PORT ..."
 
     $envVars = @(
@@ -154,19 +154,19 @@ if (-not $FrontendOnly) {
 }
 
 # ================================================================
-#  Step 3: Start Frontend (Vite) locally
+#  Step 3: Start Storefront (Vite) locally
 # ================================================================
 if (-not $BackendOnly) {
-    if (-not $FrontendOnly) {
+    if (-not $StorefrontOnly) {
         Write-Info "Waiting 5s for backend to initialize..."
         Start-Sleep -Seconds 5
     }
 
-    Write-Info "Starting Vite Frontend on http://localhost:$WEB_PORT ..."
+    Write-Info "Starting Vite Storefront on http://localhost:$WEB_PORT ..."
 
-    $frontendCmd = "cd /d `"$ROOT\Frontend`" && npm run dev"
+    $frontendCmd = "cd /d `"$ROOT\Storefront`" && npm run dev"
     $frontendProc = Start-Process -FilePath "cmd.exe" -ArgumentList "/c", $frontendCmd -PassThru -NoNewWindow
-    Write-Ok "Frontend started (PID: $($frontendProc.Id))"
+    Write-Ok "Storefront started (PID: $($frontendProc.Id))"
 }
 
 # ================================================================
@@ -193,22 +193,22 @@ Write-Host "============================================================" -Foreg
 Write-Host "      Shopperz Mart - Local Development (Hybrid Mode)"       -ForegroundColor Magenta
 Write-Host "============================================================" -ForegroundColor Magenta
 Write-Host ""
-if (-not $FrontendOnly) {
+if (-not $StorefrontOnly) {
     Write-Host "   Database:      localhost:$DEV_DB_PORT/$DB_NAME (Docker)" -ForegroundColor DarkGray
     Write-Host "   API Server:    http://localhost:$API_PORT"              -ForegroundColor White
 }
 if (-not $BackendOnly) {
     Write-Host "   Admin Panel:   http://localhost:$ADMIN_PORT"            -ForegroundColor White
-    Write-Host "   Web Frontend:  http://localhost:$WEB_PORT"              -ForegroundColor White
+    Write-Host "   Web Storefront: http://localhost:$WEB_PORT"              -ForegroundColor White
 }
 Write-Host ""
 Write-Host "   ----- External Access (LAN: $LAN_IP) -----"               -ForegroundColor Green
-if (-not $FrontendOnly) {
+if (-not $StorefrontOnly) {
     Write-Host "   API Server:    http://${LAN_IP}:$API_PORT"             -ForegroundColor Green
 }
 if (-not $BackendOnly) {
     Write-Host "   Admin Panel:   http://${LAN_IP}:$ADMIN_PORT"           -ForegroundColor Green
-    Write-Host "   Web Frontend:  http://${LAN_IP}:$WEB_PORT"             -ForegroundColor Green
+    Write-Host "   Web Storefront: http://${LAN_IP}:$WEB_PORT"             -ForegroundColor Green
 }
 Write-Host ""
 Write-Host "   Press Ctrl+C to stop all servers"                          -ForegroundColor Yellow
@@ -229,7 +229,7 @@ try {
             break
         }
         if ($frontendProc -and $frontendProc.HasExited) {
-            Write-Wrn "Frontend process exited (code: $($frontendProc.ExitCode))"
+            Write-Wrn "Storefront process exited (code: $($frontendProc.ExitCode))"
             break
         }
         if ($adminProc -and $adminProc.HasExited) {

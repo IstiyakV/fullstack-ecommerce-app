@@ -33,7 +33,7 @@ services:
       - ./backend/public:/usr/src/app/public
 
   web:
-    build: ./Frontend
+    build: ./Storefront
     restart: unless-stopped
     ports:
       - '${WEB_PORT:-3001}:80'

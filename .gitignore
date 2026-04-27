@@ -7,7 +7,7 @@ node_modules/
 
 # === Build Output ===
 Backend/dist/
-Frontend/dist/
+Storefront/dist/
 Admin/dist/
 deploy/
 
@@ -67,3 +67,6 @@ Android-Kotlin/app/release/
 build_output.txt
 coverage/
 .nyc_output/
+
+# === Local GIFs ===
+*.gif

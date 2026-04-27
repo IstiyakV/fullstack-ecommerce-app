@@ -9,25 +9,35 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/IstiyakV/Shopperz-Mart/stargazers"><img src="https://img.shields.io/github/stars/IstiyakV/Shopperz-Mart?style=for-the-badge&logo=github&color=f59e0b" alt="Stars" /></a>
-  <a href="https://github.com/IstiyakV/Shopperz-Mart/network/members"><img src="https://img.shields.io/github/forks/IstiyakV/Shopperz-Mart?style=for-the-badge&logo=git&color=3b82f6" alt="Forks" /></a>
-  <a href="https://github.com/IstiyakV/Shopperz-Mart/issues"><img src="https://img.shields.io/github/issues/IstiyakV/Shopperz-Mart?style=for-the-badge&logo=github&color=ef4444" alt="Issues" /></a>
-  <a href="LICENSE"><img src="https://img.shields.io/github/license/IstiyakV/Shopperz-Mart?style=for-the-badge&color=22c55e" alt="License" /></a>
-  <a href="https://demoshop.isty.me"><img src="https://img.shields.io/badge/Live_Demo-Visit-FF6B35?style=for-the-badge&logo=vercel" alt="Live Demo" /></a>
+  <samp>🛍️ Web Storefront · 📱 Android App · ⚙️ Admin Panel · 🔌 REST API · 🐳 One-Command Docker</samp>
 </p>
 
 <p align="center">
-  <a href="https://demoshop.isty.me">🌐 Live Demo</a> •
-  <a href="#-quick-start">⚡ Quick Start</a> •
-  <a href="#-features">✨ Features</a> •
-  <a href="#-tech-stack">🛠️ Tech Stack</a> •
-  <a href="#-screenshots">📸 Screenshots</a> •
-  <a href="CONTRIBUTING.md">🤝 Contributing</a>
+  <a href="https://github.com/IstiyakV/fullstack-ecommerce-app/stargazers"><img src="https://img.shields.io/github/stars/IstiyakV/fullstack-ecommerce-app?style=for-the-badge&logo=github&color=f59e0b" alt="Stars" /></a>
+  <a href="https://github.com/IstiyakV/fullstack-ecommerce-app/network/members"><img src="https://img.shields.io/github/forks/IstiyakV/fullstack-ecommerce-app?style=for-the-badge&logo=git&color=3b82f6" alt="Forks" /></a>
+  <a href="https://github.com/IstiyakV/fullstack-ecommerce-app/issues"><img src="https://img.shields.io/github/issues/IstiyakV/fullstack-ecommerce-app?style=for-the-badge&logo=github&color=ef4444" alt="Issues" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/IstiyakV/fullstack-ecommerce-app?style=for-the-badge&color=22c55e" alt="License" /></a>
+</p>
+
+<p align="center">
+  <a href="#-what-is-shopperz-mart">About</a> •
+  <a href="#-app-preview">Preview</a> •
+  <a href="#-installation--setup">Installation</a> •
+  <a href="#-features">Features</a> •
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-screenshots">Screenshots</a> •
+  <a href="CONTRIBUTING.md">Contributing</a><br/>
+  <a href="#-license">License</a> •
+  <a href="#-support-the-developer">Support</a> •
+  <a href="#-author">Author</a>
 </p>
 
 ---
 
 ## 🎯 What is Shopperz Mart?
+
+> [!NOTE]  
+> ⭐ **If you find this project useful, please consider giving it a star on GitHub!** It helps the project grow and reach more developers.
 
 Shopperz Mart is a **complete, production-grade e-commerce ecosystem** built from the ground up. It's not a tutorial project — it's a fully deployable platform with real-world features like multi-variant SKU management, Stripe-ready checkout, order tracking, and a native Android app.
 
@@ -37,42 +47,154 @@ Shopperz Mart is a **complete, production-grade e-commerce ecosystem** built fro
 - 📱 See how web and mobile apps share the same API
 - 🐳 Deploy anywhere with Docker in under 5 minutes
 
-> **🔗 Live Demo:** [demoshop.isty.me](https://demoshop.isty.me) · Admin Panel: [admin-demoshop.isty.me](https://admin-demoshop.isty.me) (admin@shopperzmart.com / admin123)
+---
+
+## 📸 App Preview
+
+<table>
+  <tr>
+    <td width="30%" valign="top" align="center">
+      <b>📱 Native Android App</b><br/><br/>
+      <img src="docs/screenshots/mobile-app/mobile-1.png" alt="Android App Homepage" /><br/><br/>
+      <img src="docs/screenshots/mobile-app/mobile-4.png" alt="Android App Order Details" />
+    </td>
+    <td width="70%" valign="top" align="center">
+      <b>🌐 React Web Storefront</b><br/><br/>
+      <img src="docs/screenshots/storefront/storefront-1.png" alt="Web Storefront Homepage" /><br/><br/>
+      <b>⚙️ React Admin Panel</b><br/><br/>
+      <img src="docs/screenshots/admin/admin-1-.png" alt="Admin Dashboard" />
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <em>👇 See all 30 screenshots in the <a href="#-screenshots">full gallery</a> below</em>
+</p>
 
 ---
 
-## ⚡ Quick Start
+## ⚡ Installation & Setup
 
-Get everything running in **under 60 seconds** with Docker:
+### Prerequisites
+
+| Tool | Version | Required For |
+|------|---------|-------------|
+| [**Docker Desktop**](https://www.docker.com/products/docker-desktop/) | Latest | Option 1 & 2 (Docker/Hybrid) |
+| [**Node.js**](https://nodejs.org/en/download/) | 20+ | Option 2 & 3 (Hybrid/Manual) |
+| [**PostgreSQL**](https://www.postgresql.org/download/) | 14+ | Option 3 (Manual Setup) |
+| [**Android Studio**](https://developer.android.com/studio) | Latest | Android app only |
+| [**Git**](https://git-scm.com/downloads) | Any | Cloning the repo |
+
+<details open>
+<summary><b>🐳 Option 1: Docker (Recommended — Zero Setup)</b></summary>
+<br/>
+
+Get everything running in **under 60 seconds**:
 
 ```bash
-# Clone the repository
-git clone https://github.com/IstiyakV/Shopperz-Mart.git
-cd Shopperz-Mart
+# 1. Clone the repository
+git clone https://github.com/IstiyakV/fullstack-ecommerce-app.git
+cd fullstack-ecommerce-app
 
-# Copy environment config
-cp .env.example .env
+# 2. Copy and configure environment variables
+cp .env.example .env     # (For Windows CMD use: copy .env.example .env)
+# Open .env in your editor and set your own secure passwords & JWT secret
 
-# Start all services (PostgreSQL + API + Web + Admin)
+# 3. Start all services (PostgreSQL + API + Storefront + Admin)
 docker-compose up --build -d
 
-# 🎉 Done! Open in your browser:
-# Web:   http://localhost:3001
-# Admin: http://localhost:3002 (admin@shopperzmart.com / admin123)
-# API:   http://localhost:3000
+# 4. Wait ~30 seconds for the database to seed, then open:
+#    🌐 Web Storefront:  http://localhost:3001
+#    ⚙️ Admin Panel:     http://localhost:3002
+#    🔌 API Server:      http://localhost:3000
 ```
 
-**Prefer local development with hot-reload?**
+> **Admin login:** `admin@shopperzmart.com` / `admin123`
 
 ```bash
-# Windows (PowerShell)
-.\dev.ps1
+# Useful Docker commands:
+docker-compose logs -f api          # Watch API logs
+docker-compose down                 # Stop all containers
+docker-compose down -v              # Stop + wipe database (fresh start)
+```
 
-# Linux / macOS
+</details>
+
+<details>
+<summary><b>🔥 Option 2: Hybrid Dev Mode (Hot-Reload)</b></summary>
+<br/>
+
+Best for active development — runs only PostgreSQL in Docker (~50MB RAM), everything else locally with instant hot-reload:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/IstiyakV/fullstack-ecommerce-app.git
+cd fullstack-ecommerce-app
+
+# 2. Copy and configure environment variables
+cp .env.example .env     # (For Windows CMD use: copy .env.example .env)
+# Open .env in your editor and set your own secure passwords & JWT secret
+
+# 2. Install dependencies for each app
+cd Backend && npm install && cd ..
+cd Storefront && npm install && cd ..
+cd Admin && npm install && cd ..
+
+# 3. Start everything with one command
+# Windows (PowerShell):
+.\dev.ps1
+# Linux / macOS:
 chmod +x dev.sh && ./dev.sh
 ```
 
-This starts PostgreSQL in Docker (~50MB RAM) and runs NestJS + React with hot-reload natively.
+The script will:
+- 🐘 Start PostgreSQL in Docker (port 5433)
+- 🔧 Launch NestJS API with hot-reload (port 3000)
+- 🌐 Launch React Storefront with HMR (port 3001)
+- ⚙️ Launch React Admin with HMR (port 3002)
+
+```bash
+# Handy flags:
+.\dev.ps1 -BackendOnly         # Only DB + API (skip frontends)
+.\dev.ps1 -StorefrontOnly      # Only Storefront (assumes API is running)
+.\dev.ps1 -SkipDb              # Skip Docker DB (use existing database)
+```
+
+</details>
+
+<details>
+<summary><b>🖥️ Option 3: Manual Setup (No Docker)</b></summary>
+<br/>
+
+If you have PostgreSQL installed locally:
+
+```bash
+# 1. Clone and configure
+git clone https://github.com/IstiyakV/fullstack-ecommerce-app.git
+cd fullstack-ecommerce-app
+cp .env.example .env
+
+# 2. Edit .env — set DATABASE_HOST=localhost and your DB credentials
+
+# 3. Start the API (auto-creates tables + seeds data on first run)
+cd Backend
+npm install
+npm run start:dev
+
+# 4. In a new terminal — start the Storefront
+cd Storefront
+npm install
+npm run dev
+
+# 5. In another terminal — start the Admin Panel
+cd Admin
+npm install
+npm run dev
+```
+
+> **Note:** The database tables and seed data (products, categories, demo user) are created automatically on first API startup via TypeORM `synchronize: true`.
+
+</details>
 
 ---
 
@@ -141,7 +263,7 @@ This starts PostgreSQL in Docker (~50MB RAM) and runs NestJS + React with hot-re
 </td>
 <td align="center" width="25%">
 
-**Web Frontend**
+**Web Storefront**
 
 ![React 19](https://img.shields.io/badge/React_19-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![Vite 8](https://img.shields.io/badge/Vite_8-646CFF?style=flat-square&logo=vite&logoColor=white)
@@ -218,7 +340,7 @@ Shopperz-Mart/
 │   ├── public/images/          # Seed product/banner/category images
 │   └── Dockerfile
 │
-├── Frontend/                   # React Web Storefront
+├── Storefront/                 # React Web Storefront
 │   ├── src/
 │   │   ├── components/         # Header, Footer, ProductCard, HeroCarousel...
 │   │   ├── pages/              # Home, ProductList, ProductDetail, Cart, Checkout
@@ -254,70 +376,112 @@ Shopperz-Mart/
 ## 📸 Screenshots
 
 <details>
-<summary><strong>🌐 Web Storefront</strong> (click to expand)</summary>
+<summary><b>🌐 Web Storefront</b> — 7 screenshots (click to expand)</summary>
 <br/>
 
-| Homepage | Product Detail |
-|:--------:|:--------------:|
-| ![Homepage](docs/screenshots/web-home.png) | ![Product Detail](docs/screenshots/web-product.png) |
+| | | |
+|:---:|:---:|:---:|
+| ![Homepage](docs/screenshots/storefront/storefront-1.png) | ![Categories](docs/screenshots/storefront/storefront-2.png) | ![Products](docs/screenshots/storefront/storefront-3.png) |
+| **Homepage** | **Category Browse** | **Product Listing** |
+| ![Product Detail](docs/screenshots/storefront/storefront-4.png) | ![Cart](docs/screenshots/storefront/storefront-5.png) | ![Checkout](docs/screenshots/storefront/storefront-6.png) |
+| **Product Detail** | **Shopping Cart** | **Checkout Flow** |
+| ![Order](docs/screenshots/storefront/storefront-7.png) | | |
+| **Order Tracking** | | |
 
 </details>
 
 <details>
-<summary><strong>⚙️ Admin Panel</strong> (click to expand)</summary>
+<summary><b>📱 Android App</b> — 9 screenshots (click to expand)</summary>
 <br/>
 
-| Dashboard | Login |
-|:---------:|:-----:|
-| ![Dashboard](docs/screenshots/admin-dashboard.png) | ![Login](docs/screenshots/admin-login.png) |
+| | | |
+|:---:|:---:|:---:|
+| ![Home](docs/screenshots/mobile-app/mobile-1.png) | ![Product](docs/screenshots/mobile-app/mobile-2.png) | ![Cart](docs/screenshots/mobile-app/mobile-3.png) |
+| **Home Feed** | **Product Detail** | **Shopping Cart** |
+| ![Orders](docs/screenshots/mobile-app/mobile-4.png) | ![Account](docs/screenshots/mobile-app/mobile-5.png) | ![Wishlist](docs/screenshots/mobile-app/mobile-6.png) |
+| **Order Tracking** | **My Account** | **Wishlist** |
+| ![Checkout](docs/screenshots/mobile-app/mobile-7.png) | ![Categories](docs/screenshots/mobile-app/mobile-8.png) | ![Search](docs/screenshots/mobile-app/mobile-9.png) |
+| **Checkout Flow** | **Categories** | **Search** |
+
+</details>
+
+<details>
+<summary><b>⚙️ Admin Panel</b> — 14 screenshots (click to expand)</summary>
+<br/>
+
+| | | |
+|:---:|:---:|:---:|
+| ![Dashboard](docs/screenshots/admin/admin-1-.png) | ![Orders](docs/screenshots/admin/admin-2-.png) | ![Order Detail](docs/screenshots/admin/admin-3-.png) |
+| **Dashboard** | **Order List** | **Order Detail** |
+| ![Products](docs/screenshots/admin/admin-4-.png) | ![Product Edit](docs/screenshots/admin/admin-5-.png) | ![Variants](docs/screenshots/admin/admin-6-.png) |
+| **Product List** | **Product Editor** | **Variant Matrix** |
+| ![Categories](docs/screenshots/admin/admin-7-.png) | ![Brands](docs/screenshots/admin/admin-8-.png) | ![Customers](docs/screenshots/admin/admin-9-.png) |
+| **Categories** | **Brands** | **Customers** |
+| ![Sliders](docs/screenshots/admin/admin-10-.png) | ![Banners](docs/screenshots/admin/admin-11-.png) | ![Reviews](docs/screenshots/admin/admin-12-.png) |
+| **Sliders** | **Banners** | **Reviews** |
+| ![Shipping](docs/screenshots/admin/admin-13-.png) | ![Settings](docs/screenshots/admin/admin-14-.png) | |
+| **Shipping Zones** | **App Config** | |
 
 </details>
 
 ---
 
-## 🚀 Deployment
+## 🚀 Deployment & Configuration
 
-### Docker (Recommended)
+<details>
+<summary><b>🐳 Docker on VPS (DigitalOcean, AWS, etc.)</b></summary>
+<br/>
 
 ```bash
-# Production build
+# 1. Clone on your server
+git clone https://github.com/IstiyakV/fullstack-ecommerce-app.git
+cd fullstack-ecommerce-app
+
+# 2. Configure production environment
+cp .env.example .env
+nano .env   # Set real DB credentials, strong admin password, JWT secret
+
+# 3. Build and launch
 docker-compose up --build -d
 
-# Fresh database (drops existing data)
-docker-compose down -v && docker-compose up --build -d
+# 4. Verify
+curl http://localhost:3000/api/v1/health    # API health check
 ```
 
-### Hybrid Development (Hot-Reload)
+> Set up a reverse proxy (Nginx/Caddy) to point your domain to ports 3001 (web), 3002 (admin), and 3000 (API).
 
-Best for active development — runs only PostgreSQL in Docker, everything else locally with hot-reload:
+</details>
 
-```bash
-# Windows
-.\dev.ps1
+<details>
+<summary><b>📦 Shared Hosting (cPanel / Namecheap)</b></summary>
+<br/>
 
-# Linux/macOS
-./dev.sh
+The included `deploy.ps1` script builds all 3 apps into a single ZIP ready for upload:
 
-# Flags:
-#   -SkipDb / --skip-db         Skip DB container startup
-#   -BackendOnly / --backend-only   Start only NestJS
-#   -FrontendOnly / --frontend-only Start only React
-```
-
-### Shared Hosting (cPanel/Namecheap)
-
-```bash
-# Build all apps into a single deployment ZIP
+```powershell
+# Build with your domain names
 .\deploy.ps1 -ApiDomain "https://api.yourdomain.com" `
              -WebDomain "https://yourdomain.com" `
              -AdminDomain "https://admin.yourdomain.com"
+
+# Output: deploy/yourdomain.com.zip
+# Upload → Extract on server → Configure .env → Restart Node.js app
 ```
 
-See [Backend/README.md](Backend/README.md) for detailed deployment documentation.
+| Flag | Effect |
+|------|--------|
+| `-SkipImages` | Exclude seed images (~600KB instead of ~19MB) |
+| `-ApiDomain` | API subdomain (baked into frontend builds) |
+| `-WebDomain` | Main storefront domain |
+| `-AdminDomain` | Admin panel subdomain |
 
----
+See module-specific READMEs for detailed setup: [Backend](Backend/README.md) · [Storefront](Storefront/README.md) · [Admin](Admin/README.md)
 
-## 📱 Android Setup
+</details>
+
+<details>
+<summary><b>📱 Android Setup</b></summary>
+<br/>
 
 1. Open `Android-Kotlin/` in Android Studio
 2. Create `local.properties` with your SDK path:
@@ -329,31 +493,58 @@ See [Backend/README.md](Backend/README.md) for detailed deployment documentation
 
 > **Emulator tip:** The dev flavor uses `http://10.0.2.2:3000/` which maps to your host's localhost via Android emulator.
 
----
+</details>
 
-## ⚙️ Environment Variables
+<details>
+<summary><b>⚙️ Environment Variables</b></summary>
+<br/>
 
-Copy `.env.example` to `.env` and configure:
+Shopperz Mart uses a **Single Source of Truth** for configuration. Instead of managing separate `.env` files in `Backend/`, `Storefront/`, and `Admin/`, you only need **one `.env` file at the root** of the repository.
+
+This single file automatically configures:
+- Docker networking (`docker-compose.yml`)
+- NestJS API backend (`ConfigModule`)
+- React Vite builds (`loadEnv`)
+- PowerShell & Bash deployment scripts
+
+#### Setup Instructions
+
+1. Copy the example file:
+   ```bash
+   cp .env.example .env
+   ```
+2. Open `.env` in your editor and configure the values:
 
 ```env
-# Database
-DATABASE_HOST=db          # 'db' for Docker, 'localhost' for local
+# === Database ===
+# Set to 'db' if running inside Docker.
+# Set to 'localhost' if running backend locally via npm run start:dev
+DATABASE_HOST=db
 DATABASE_PORT=5432
 DATABASE_USER=postgres
 DATABASE_PASSWORD=your_secure_password
 DATABASE_NAME=ecommerce
 
-# Server Ports
-API_PORT=3000
-WEB_PORT=3001
-ADMIN_PORT=3002
-DEV_DB_PORT=5433          # Host port for DB (avoids local PG conflict)
+# === Server Ports ===
+# These dictate where the apps will run. The dev scripts read these!
+API_PORT=3000                       # NestJS API
+WEB_PORT=3001                       # React Web Storefront
+ADMIN_PORT=3002                     # React Admin Panel
+DEV_DB_PORT=5433                    # Host port for DB in hybrid dev mode
 
-# Admin Authentication
+# === Admin Panel Authentication ===
 ADMIN_EMAIL=admin@shopperzmart.com
 ADMIN_PASSWORD=change_this_password
-ADMIN_JWT_SECRET=generate_a_random_secret
+ADMIN_JWT_SECRET=generate_a_random_secret_here
+
+# === Production CORS ===
+# Uncomment and set this in production to secure your API
+# CORS_ORIGINS=https://yourdomain.com,https://admin.yourdomain.com
 ```
+
+> ⚠️ **Important:** Never commit your actual `.env` file to GitHub. It is already included in `.gitignore`.
+
+</details>
 
 ---
 
@@ -388,11 +579,43 @@ You are free to use this project for personal or commercial purposes.
 If this project helped you learn something new or saved you development time, please consider giving it a **star**! It motivates us to keep building and maintaining this project.
 
 <p align="center">
-  <a href="https://github.com/IstiyakV/Shopperz-Mart/stargazers">
-    <img src="https://img.shields.io/github/stars/IstiyakV/Shopperz-Mart?style=for-the-badge&logo=github&label=Star%20this%20repo&color=f59e0b" alt="Star this repo" />
+  <a href="https://github.com/IstiyakV/fullstack-ecommerce-app/stargazers">
+    <img src="https://img.shields.io/github/stars/IstiyakV/fullstack-ecommerce-app?style=for-the-badge&logo=github&label=Star%20this%20repo&color=f59e0b" alt="Star this repo" />
+  </a>
+</p>
+
+---
+
+## ☕ Support the Developer
+
+Building and maintaining a production-ready ecosystem takes hundreds of hours. If you'd like to support my work and help fuel the development of **upcoming AI and intelligent features**, consider buying me a coffee! Your support makes a huge difference.
+
+<p align="center">
+  <a href="https://buymeacoffee.com/kazimihossain" target="_blank">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" >
   </a>
 </p>
 
 <p align="center">
-  Made with ❤️ by <a href="https://github.com/IstiyakV">Istiyak</a>
+  <em>Or scan the QR Code below:</em><br/>
+  <img src="docs/bmc_qr.png" alt="Buy Me A Coffee QR Code" width="150" />
+</p>
+
+---
+
+## 👤 Author
+
+<p align="center">
+  <a href="https://isty.me"><strong>Istiyak</strong></a><br/>
+  Full-Stack Developer
+</p>
+
+<p align="center">
+  <a href="https://isty.me"><img src="https://img.shields.io/badge/Portfolio-isty.me-FF6B35?style=for-the-badge&logo=google-chrome&logoColor=white" alt="Portfolio" /></a>
+  <a href="mailto:contact@isty.me"><img src="https://img.shields.io/badge/Email-contact@isty.me-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
+  <a href="https://github.com/IstiyakV"><img src="https://img.shields.io/badge/GitHub-IstiyakV-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
+</p>
+
+<p align="center">
+  Made with ❤️ by <a href="https://isty.me">Istiyak</a>
 </p>
