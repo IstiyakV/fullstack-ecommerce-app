@@ -11,6 +11,8 @@ import { OrderModule } from './modules/order/order.module';
 import { ShopperzConfigModule } from './modules/config/config.module';
 import { AdminModule } from './modules/admin/admin.module';
 
+import { AppController } from './app.controller';
+
 import { Slider } from './database/entities/slider.entity';
 import { BannerSlider } from './database/entities/banner-slider.entity';
 import { Category } from './database/entities/category.entity';
@@ -74,5 +76,6 @@ import { SeedModule } from './database/seed/seed.module';
     ShopperzConfigModule,
     AdminModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
