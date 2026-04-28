@@ -75,6 +75,30 @@ foreach ($port in @($API_PORT, $WEB_PORT, $ADMIN_PORT)) {
 Write-Ok "Ports $API_PORT and $WEB_PORT are free."
 
 # ================================================================
+#  Step 0.5: Auto-install dependencies if node_modules is missing
+# ================================================================
+$appDirs = @(
+    @{ Name = "Backend";    Path = Join-Path $ROOT "backend" },
+    @{ Name = "Storefront"; Path = Join-Path $ROOT "Storefront" },
+    @{ Name = "Admin";      Path = Join-Path $ROOT "Admin" }
+)
+
+foreach ($app in $appDirs) {
+    $nodeModules = Join-Path $app.Path "node_modules"
+    if (-not (Test-Path $nodeModules)) {
+        Write-Info "Installing dependencies for $($app.Name) (first run)..."
+        $installResult = cmd /c "cd /d `"$($app.Path)`" && npm install 2>&1"
+        if ($LASTEXITCODE -eq 0) {
+            Write-Ok "$($app.Name) dependencies installed."
+        } else {
+            Write-Err "Failed to install $($app.Name) dependencies!"
+            Write-Host $installResult
+            exit 1
+        }
+    }
+}
+
+# ================================================================
 #  Step 1: Start PostgreSQL in Docker (lightweight, ~50MB RAM)
 # ================================================================
 if (-not $SkipDb -and -not $StorefrontOnly) {

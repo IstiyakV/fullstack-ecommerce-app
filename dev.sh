@@ -95,6 +95,24 @@ done
 ok "Ports $API_PORT and $WEB_PORT are free."
 
 # ================================================================
+#  Step 0.5: Auto-install dependencies if node_modules is missing
+# ================================================================
+for app_dir in "backend:Backend" "Storefront:Storefront" "Admin:Admin"; do
+    dir="${app_dir%%:*}"
+    name="${app_dir##*:}"
+    if [ ! -d "$ROOT/$dir/node_modules" ]; then
+        info "Installing dependencies for $name (first run)..."
+        (cd "$ROOT/$dir" && npm install)
+        if [ $? -eq 0 ]; then
+            ok "$name dependencies installed."
+        else
+            err "Failed to install $name dependencies!"
+            exit 1
+        fi
+    fi
+done
+
+# ================================================================
 #  Step 1: Start PostgreSQL in Docker
 # ================================================================
 if [ "$SKIP_DB" = false ] && [ "$FRONTEND_ONLY" = false ]; then
