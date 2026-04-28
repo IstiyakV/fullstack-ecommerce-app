@@ -380,7 +380,7 @@ export class SeedService implements OnApplicationBootstrap {
         product_name: 'TrekMaster Backpack', product_slug: 'trekmaster-backpack',
         product_details: '<h3>TrekMaster 30L Adventure Backpack</h3><p>Durable 30L adventure backpack with laptop compartment, USB charging port, and water-resistant nylon.</p>',
         product_specification: '<table><tr><td>Capacity</td><td>30 Liters</td></tr><tr><td>Material</td><td>Water-Resistant Nylon</td></tr><tr><td>Laptop</td><td>Up to 15.6"</td></tr><tr><td>Features</td><td>USB Port, Rain Cover</td></tr></table>',
-        selling_price: '55', regular_price: '75', discount_rate: '27',
+        selling_price: '1499', regular_price: '2599', discount_rate: '42',
         featured_image: `${IMG_BASE}/images/products/backpack.png`,
         image: `${IMG_BASE}/images/products/backpack.png`,
         stock: '60', product_type: 'retail', parent_category_id: '4',
@@ -620,8 +620,26 @@ export class SeedService implements OnApplicationBootstrap {
       { product_id: id6, sku_code: 'SM-CHRNO-RSG-STL', price: '279', stock: '5', is_active: '1', combination: JSON.stringify({ Color: 'Rose Gold', Band: 'Steel' }) },
     ]));
 
-    // ─── Product 7: TrekMaster Backpack → NO VARIANTS ───────────────────
-    // (No variant types/options/skus — uses product's own sku_code, price, stock)
+    // ─── Product 7: TrekMaster Backpack → Color + Size ────────────────
+    const id7 = getId('trekmaster-backpack');
+    if (id7) {
+      const p7Color = await this.variantTypeRepo.save(this.variantTypeRepo.create({ product_id: id7, type_name: 'Color', sort_order: '0' }));
+      const p7Size = await this.variantTypeRepo.save(this.variantTypeRepo.create({ product_id: id7, type_name: 'Size', sort_order: '1' }));
+
+      await this.variantOptionRepo.save(this.variantOptionRepo.create([
+        { type_id: p7Color.type_id.toString(), product_id: id7, option_value: 'Teal', option_image: `${IMG_BASE}/images/products/backpack.png`, color_code: '#11917C', sort_order: '0' },
+        { type_id: p7Color.type_id.toString(), product_id: id7, option_value: 'Pink', option_image: `${IMG_BASE}/images/products/backpack.png`, color_code: '#EFCCC1', sort_order: '1' },
+        { type_id: p7Size.type_id.toString(), product_id: id7, option_value: '30L', option_image: `${IMG_BASE}/images/products/backpack.png`, sort_order: '0' },
+        { type_id: p7Size.type_id.toString(), product_id: id7, option_value: '20L', option_image: `${IMG_BASE}/images/products/backpack.png`, sort_order: '1' },
+      ]));
+
+      await this.skuRepo.save(this.skuRepo.create([
+        { product_id: id7, sku_code: 'SM-TREK-BPK-001-TEA-30L', price: '1899', regular_price: '2299', stock: '8', is_active: '1', combination: JSON.stringify({ Color: 'Teal', Size: '30L' }) },
+        { product_id: id7, sku_code: 'SM-TREK-BPK-001-TEA-20L', price: '1499', regular_price: '1999', stock: '3', is_active: '1', combination: JSON.stringify({ Color: 'Teal', Size: '20L' }) },
+        { product_id: id7, sku_code: 'SM-TREK-BPK-001-PIN-30L', price: '2199', regular_price: '2599', stock: '6', is_active: '1', combination: JSON.stringify({ Color: 'Pink', Size: '30L' }) },
+        { product_id: id7, sku_code: 'SM-TREK-BPK-001-PIN-20L', price: '1799', regular_price: '2099', stock: '5', is_active: '1', combination: JSON.stringify({ Color: 'Pink', Size: '20L' }) },
+      ]));
+    }
 
     this.log.log('Seeded: Variant Types, Options & SKU Combinations');
   }
