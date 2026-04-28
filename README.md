@@ -118,6 +118,13 @@ docker-compose down                 # Stop all containers
 docker-compose down -v              # Stop + wipe database (fresh start)
 ```
 
+> [!WARNING]
+> **Database password mismatch?** If you see `password authentication failed` in the API logs, it means the PostgreSQL Docker volume was created with a different password. PostgreSQL only sets the password on the **first** run. Fix it with:
+> ```bash
+> docker-compose down -v    # Removes the old volume
+> docker-compose up --build -d   # Recreates with current .env password
+> ```
+
 </details>
 
 <details>
