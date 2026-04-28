@@ -1,5 +1,5 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { FiGrid, FiShoppingCart, FiPackage, FiUsers, FiFolder, FiTag, FiImage, FiGift, FiStar, FiTruck, FiBell, FiSettings, FiCreditCard } from 'react-icons/fi';
+import { FiGrid, FiShoppingCart, FiPackage, FiUsers, FiFolder, FiTag, FiImage, FiGift, FiStar, FiTruck, FiBell, FiSettings, FiCreditCard, FiLock } from 'react-icons/fi';
 
 const nav = [
   { label: 'MAIN' },
@@ -21,6 +21,8 @@ const nav = [
   { to: '/shipping', icon: FiTruck, text: 'Shipping' },
   { to: '/settings', icon: FiSettings, text: 'App Config' },
   { to: '/payment-gateways', icon: FiCreditCard, text: 'Payment Gateways' },
+  { label: 'ACCOUNT' },
+  { to: '/account/change-password', icon: FiLock, text: 'Change Password' },
 ];
 
 export default function Sidebar({ open, onClose }) {

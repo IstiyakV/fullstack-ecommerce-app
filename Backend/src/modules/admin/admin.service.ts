@@ -424,8 +424,90 @@ export class AdminService {
   }
 
   async deleteProduct(id: string) {
+    // Delete related data first
+    await this.skuRepo.delete({ product_id: id });
+    await this.variantOptionRepo.delete({ product_id: id });
+    await this.variantTypeRepo.delete({ product_id: id });
+    await this.imageRepo.delete({ product_id: id });
     await this.productRepo.delete(id);
     return { ...OK, message: 'Product deleted.' };
+  }
+
+  // ─── PRODUCT BACKUP & RESTORE ──────────────────────────────────────────────────
+
+  async backupProducts() {
+    const products = await this.productRepo.find();
+    const images = await this.imageRepo.find();
+    const variantTypes = await this.variantTypeRepo.find();
+    const variantOptions = await this.variantOptionRepo.find();
+    const skus = await this.skuRepo.find();
+
+    return {
+      ...OK,
+      data: {
+        version: '1.0',
+        exported_at: new Date().toISOString(),
+        products,
+        product_images: images,
+        variant_types: variantTypes,
+        variant_options: variantOptions,
+        product_skus: skus,
+        stats: {
+          products: products.length,
+          images: images.length,
+          variant_types: variantTypes.length,
+          variant_options: variantOptions.length,
+          skus: skus.length,
+        },
+      },
+    };
+  }
+
+  async restoreProducts(backup: any) {
+    if (!backup || !backup.products) {
+      return { success: false, message: 'Invalid backup file. Missing products data.' };
+    }
+
+    try {
+      // Clear existing data in dependency order
+      await this.skuRepo.clear();
+      await this.variantOptionRepo.clear();
+      await this.variantTypeRepo.clear();
+      await this.imageRepo.clear();
+      await this.productRepo.clear();
+
+      // Restore in dependency order
+      let stats = { products: 0, images: 0, variant_types: 0, variant_options: 0, skus: 0 };
+
+      if (backup.products?.length) {
+        await this.productRepo.save(this.productRepo.create(backup.products));
+        stats.products = backup.products.length;
+      }
+      if (backup.product_images?.length) {
+        await this.imageRepo.save(this.imageRepo.create(backup.product_images));
+        stats.images = backup.product_images.length;
+      }
+      if (backup.variant_types?.length) {
+        await this.variantTypeRepo.save(this.variantTypeRepo.create(backup.variant_types));
+        stats.variant_types = backup.variant_types.length;
+      }
+      if (backup.variant_options?.length) {
+        await this.variantOptionRepo.save(this.variantOptionRepo.create(backup.variant_options));
+        stats.variant_options = backup.variant_options.length;
+      }
+      if (backup.product_skus?.length) {
+        await this.skuRepo.save(this.skuRepo.create(backup.product_skus));
+        stats.skus = backup.product_skus.length;
+      }
+
+      return {
+        ...OK,
+        message: `Restored ${stats.products} products, ${stats.images} images, ${stats.variant_types} variant types, ${stats.variant_options} variant options, ${stats.skus} SKUs.`,
+        stats,
+      };
+    } catch (err) {
+      return { success: false, message: `Restore failed: ${err.message || 'Unknown error'}` };
+    }
   }
 
   // ─── CUSTOMERS ─────────────────────────────────────────────────────────────────

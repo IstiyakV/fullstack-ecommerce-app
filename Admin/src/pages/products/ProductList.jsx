@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { FiLayers } from 'react-icons/fi';
+import { FiLayers, FiDownloadCloud, FiUploadCloud } from 'react-icons/fi';
 import CrudPage from '../../components/common/CrudPage';
 import api, { resolveImage } from '../../api/adminApi';
+import toast from 'react-hot-toast';
 
 const columns = [
   { key: 'product_id', label: 'ID' },
@@ -20,6 +21,9 @@ const columns = [
 export default function ProductList() {
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [brandOptions, setBrandOptions] = useState([]);
+  const [backupLoading, setBackupLoading] = useState(false);
+  const [restoreLoading, setRestoreLoading] = useState(false);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     api.get('/categories').then(r => {
@@ -37,6 +41,67 @@ export default function ProductList() {
       setBrandOptions([{ value: '', label: '— Select Brand —' }, ...brands]);
     });
   }, []);
+
+  const handleBackup = async () => {
+    setBackupLoading(true);
+    try {
+      const res = await api.get('/products-backup');
+      if (res.data.success) {
+        const blob = new Blob([JSON.stringify(res.data.data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const date = new Date().toISOString().split('T')[0];
+        a.href = url;
+        a.download = `shopperz-products-backup-${date}.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        const s = res.data.data.stats;
+        toast.success(`Backup exported: ${s.products} products, ${s.skus} SKUs`);
+      } else {
+        toast.error('Backup failed');
+      }
+    } catch (err) {
+      toast.error('Failed to create backup');
+    }
+    setBackupLoading(false);
+  };
+
+  const handleRestoreClick = () => {
+    if (fileInputRef.current) fileInputRef.current.click();
+  };
+
+  const handleRestoreFile = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Confirm before restore
+    const confirmed = window.confirm(
+      '⚠️ WARNING: This will replace ALL existing products with the backup data.\n\n' +
+      'This action cannot be undone.\n\nAre you sure you want to proceed?'
+    );
+    if (!confirmed) {
+      e.target.value = '';
+      return;
+    }
+
+    setRestoreLoading(true);
+    try {
+      const text = await file.text();
+      const backup = JSON.parse(text);
+      const res = await api.post('/products-restore', backup);
+      if (res.data.success) {
+        toast.success(res.data.message);
+        // Reload page to refresh product list
+        setTimeout(() => window.location.reload(), 1000);
+      } else {
+        toast.error(res.data.message || 'Restore failed');
+      }
+    } catch (err) {
+      toast.error('Invalid backup file or restore failed');
+    }
+    e.target.value = '';
+    setRestoreLoading(false);
+  };
 
   const formFields = [
     { key: 'product_name', label: 'Product Name', required: true },
@@ -64,6 +129,37 @@ export default function ProductList() {
     { key: 'publish_status', label: 'Published', type: 'select', default: '1', options: [{ value: '1', label: 'Yes' }, { value: '0', label: 'No' }] },
   ];
 
+  const headerActions = (
+    <div className="flex items-center gap-2">
+      <button
+        onClick={handleBackup}
+        disabled={backupLoading}
+        className="btn-outline flex items-center gap-1.5 text-xs"
+        title="Export all products, variants & SKUs as JSON"
+      >
+        <FiDownloadCloud size={15} />
+        {backupLoading ? 'Exporting…' : 'Backup'}
+      </button>
+      <button
+        onClick={handleRestoreClick}
+        disabled={restoreLoading}
+        className="btn-outline flex items-center gap-1.5 text-xs"
+        style={{ borderColor: '#f59e0b', color: '#f59e0b' }}
+        title="Restore products from a backup JSON file"
+      >
+        <FiUploadCloud size={15} />
+        {restoreLoading ? 'Restoring…' : 'Restore'}
+      </button>
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleRestoreFile}
+        accept=".json"
+        className="hidden"
+      />
+    </div>
+  );
+
   return (
     <CrudPage
       title="Products"
@@ -73,6 +169,7 @@ export default function ProductList() {
       columns={columns}
       formFields={formFields}
       paginated
+      headerActions={headerActions}
       renderExtra={(item) => (
         <Link 
           to={`/products/${item.product_id}/variants`} 

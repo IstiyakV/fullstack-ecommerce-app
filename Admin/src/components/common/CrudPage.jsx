@@ -7,7 +7,7 @@ import ImageUpload from './ImageUpload';
 export default function CrudPage({
   title, subtitle, endpoint, columns, formFields,
   idField = 'id', noCreate = false, noEdit = false, noDelete = false,
-  renderExtra, onRowClick, paginated = false,
+  renderExtra, onRowClick, paginated = false, headerActions,
 }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -80,9 +80,12 @@ export default function CrudPage({
     <div>
       <div className="page-header flex items-start justify-between">
         <div><h1>{title}</h1><p>{subtitle}</p></div>
-        {!noCreate && formFields && (
-          <button className="btn-primary" onClick={openCreate}><FiPlus size={16} /> Add New</button>
-        )}
+        <div className="flex items-center gap-2">
+          {headerActions}
+          {!noCreate && formFields && (
+            <button className="btn-primary" onClick={openCreate}><FiPlus size={16} /> Add New</button>
+          )}
+        </div>
       </div>
 
       <div className="data-table-wrapper">

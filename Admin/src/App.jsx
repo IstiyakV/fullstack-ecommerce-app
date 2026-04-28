@@ -41,7 +41,7 @@ export default function App() {
     <Routes>
       {/* Public */}
       <Route path="/login" element={<GuestRoute><Login /></GuestRoute>} />
-      <Route path="/change-password" element={<ChangePassword />} />
+      <Route path="/change-password" element={<ChangePassword standalone />} />
 
       {/* Protected — AdminLayout shell */}
       <Route element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
@@ -61,6 +61,7 @@ export default function App() {
         <Route path="notifications" element={<NotificationList />} />
         <Route path="settings" element={<AppConfigPage />} />
         <Route path="payment-gateways" element={<PaymentGatewaysPage />} />
+        <Route path="account/change-password" element={<ChangePassword />} />
       </Route>
 
       {/* Fallback */}

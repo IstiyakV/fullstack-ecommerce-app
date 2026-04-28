@@ -98,6 +98,18 @@ export class AdminController {
     return this.svc.deleteProduct(id);
   }
 
+  @Get('products-backup')
+  @UseGuards(JwtAuthGuard)
+  backupProducts() {
+    return this.svc.backupProducts();
+  }
+
+  @Post('products-restore')
+  @UseGuards(JwtAuthGuard)
+  restoreProducts(@Body() body: any) {
+    return this.svc.restoreProducts(body);
+  }
+
   // ─── CUSTOMERS ───────────────────────────────────────────────────────────────
 
   @Get('customers')
