@@ -70,3 +70,6 @@ coverage/
 
 # === Local GIFs ===
 *.gif
+
+# === Private Docker Distribution (not published) ===
+Docker/
