@@ -101,7 +101,7 @@ cp .env.example .env     # (For Windows CMD use: copy .env.example .env)
 # Open .env in your editor and set your own secure passwords & JWT secret
 
 # 3. Start all services (PostgreSQL + API + Storefront + Admin)
-docker-compose up --build -d
+docker compose up --build -d
 
 # 4. Wait ~30 seconds for the database to seed, then open:
 #    🌐 Web Storefront:  http://localhost:3001
@@ -113,16 +113,16 @@ docker-compose up --build -d
 
 ```bash
 # Useful Docker commands:
-docker-compose logs -f api          # Watch API logs
-docker-compose down                 # Stop all containers
-docker-compose down -v              # Stop + wipe database (fresh start)
+docker compose logs -f api          # Watch API logs
+docker compose down                 # Stop all containers
+docker compose down -v              # Stop + wipe database (fresh start)
 ```
 
 > [!WARNING]
 > **Database password mismatch?** If you see `password authentication failed` in the API logs, it means the PostgreSQL Docker volume was created with a different password. PostgreSQL only sets the password on the **first** run. Fix it with:
 > ```bash
-> docker-compose down -v    # Removes the old volume
-> docker-compose up --build -d   # Recreates with current .env password
+> docker compose down -v    # Removes the old volume
+> docker compose up --build -d   # Recreates with current .env password
 > ```
 
 </details>
@@ -449,7 +449,7 @@ cp .env.example .env
 nano .env   # Set real DB credentials, strong admin password, JWT secret
 
 # 3. Build and launch
-docker-compose up --build -d
+docker compose up --build -d
 
 # 4. Verify
 curl http://localhost:3000/api/v1/health    # API health check
